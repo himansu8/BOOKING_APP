@@ -1,14 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './datatable.scss'
 import { DataGrid } from '@mui/x-data-grid';
 import { userColumns, userRows } from '../../dataTableSource';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
+import axios from 'axios';
 
-function Datatable() {
-    const [data, setData] = useState(userRows)
-
-    function handledelete(id) {
-        setData(data.filter((item) => item.id !== id))
+function Datatable({columns}) {
+    const location = useLocation()
+    const path = location.pathname.split("/")[1]
+    const [list, setList] = useState([])
+    const { data, loading, error } = useFetch(`/${path}`)
+    useEffect(() => {
+        setList(data)
+    }, [data])
+   async function handledelete(id) {
+    try {
+        await axios.delete(`/${path}/${id}`)
+        setList(list.filter((item) => item._id !== id))
+    } catch (error) {
+        console.log(error)
+    }
     }
     const actionColumn = [{
         field: "action", headerName: "Action", width: 200, renderCell: (params) => {
@@ -17,7 +29,7 @@ function Datatable() {
                     <Link to="/users/test" style={{ textDecoration: "none" }}>
                         <div className="viewButton">View</div>
                     </Link>
-                    <div className="deleteButton" onClick={() => handledelete(params.row.id)}>Delete</div>
+                    <div className="deleteButton" onClick={() => handledelete(params.row._id)}>Delete</div>
                 </div>
             );
         },
@@ -31,13 +43,26 @@ function Datatable() {
                     Add New
                 </Link>
             </div>
-            <DataGrid
+            {/* <DataGrid
                 className='datagrid'
                 rows={data}
                 columns={userColumns.concat(actionColumn)}
                 pageSize={9}
-                rowsPerPageOptions={[9]}
+                rowsPerPageOptions={[9, 10]}
                 checkboxSelection
+            /> */}
+            <DataGrid
+                className="datagrid"
+                rows={list}
+                columns={columns.concat(actionColumn)}
+                initialState={{
+                    pagination: {
+                        paginationModel: { page: 0, pageSize: 9 },
+                    },
+                }}
+                pageSizeOptions={[9, 10]}
+                checkboxSelection
+                getRowId={(row) => row._id}
             />
         </div>
     )
