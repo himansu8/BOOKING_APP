@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './datatable.scss'
 import { DataGrid } from '@mui/x-data-grid';
-import { userColumns, userRows } from '../../dataTableSource';
+//import { userColumns, userRows } from '../../dataTableSource';
 import { Link, useLocation } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 import axios from 'axios';
@@ -10,7 +10,7 @@ function Datatable({columns}) {
     const location = useLocation()
     const path = location.pathname.split("/")[1]
     const [list, setList] = useState([])
-    const { data, loading, error } = useFetch(`/${path}`)
+    const { data } = useFetch(`/${path}`)
     useEffect(() => {
         setList(data)
     }, [data])
@@ -22,6 +22,7 @@ function Datatable({columns}) {
         console.log(error)
     }
     }
+    console.log(list)
     const actionColumn = [{
         field: "action", headerName: "Action", width: 200, renderCell: (params) => {
             return (
@@ -38,8 +39,8 @@ function Datatable({columns}) {
     return (
         <div className='datatable'>
             <div className="datatableTitle">
-                Add New User
-                <Link to={'/users/new'} className='link'>
+                {path}
+                <Link to={`/${path}/new`} className='link'>
                     Add New
                 </Link>
             </div>

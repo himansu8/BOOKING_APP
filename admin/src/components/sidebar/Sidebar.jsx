@@ -46,7 +46,7 @@ function Sidebar() {
               <span>Hotels</span>
             </li>
           </Link>
-          <Link to={'/hotels'} style={{ textDecoration: "none" }}>
+          <Link to={'/rooms'} style={{ textDecoration: "none" }}>
           <li>
             <CreditCardOutlinedIcon className='icon' />
             <span>Rooms</span>

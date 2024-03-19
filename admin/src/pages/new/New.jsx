@@ -6,7 +6,7 @@ import './new.scss'
 import axios from 'axios';
 function New({ inputs, title }) {
   const [file, setFile] = useState("")
-  const [info, setInfo] = useState()
+  const [info, setInfo] = useState({})
   function handleChange(e) {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }))
   }
@@ -17,20 +17,22 @@ function New({ inputs, title }) {
     data.append("file", file)
     data.append("upload_preset", "upload")
     try {
-      const uploadRes = await axios.post("POST https://api.cloudinary.com/v1_1/himansu8/image/upload", data)
+      const uploadRes = await axios.post("https://api.cloudinary.com/v1_1/himansu8/image/upload", data)
 
+      console.log(uploadRes.data.url)
       const { url } = uploadRes.data;
-
+      console.log(info)
       const newUser = {
         ...info,
         img: url,
       };
-
-      await axios.post("/auth/register", newUser);
+      console.log(info)
+       await axios.post("/auth/register", newUser);
     } catch (error) {
       console.log(error)
     }
   }
+  console.log(info)
   return (
     <div className='new'>
       <Sidebar />
