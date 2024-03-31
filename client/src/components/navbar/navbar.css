@@ -21,11 +21,8 @@
     padding: 5px 10px;
     cursor: pointer;
     color:  #003580;
-
-}
-.linkButton{
-    margin-left: 20px;
-    padding: 5px 10px;
-    cursor: pointer;
-    color:  white;
+    .linkButton{
+        color: #003580;
+        text-decoration: none;
+    }
 }

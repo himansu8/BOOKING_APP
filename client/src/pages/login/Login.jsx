@@ -28,7 +28,7 @@ function Login() {
         dispatch({ type: "LOGIN_START" })
         try {
             const res = await axios.post("/auth/login", loginInfo)
-            dispatch({ type: "LOGIN_SUCCESS", payload: res.data })
+            dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details })
             navigate("/")
         } catch (error) {
             dispatch({ type: "LOGIN_failure", payload: error.response.data })
@@ -37,7 +37,7 @@ function Login() {
     console.log(user)
     return (
         <div className='login'>
-            <div className="lcontainer">
+            <div className="lContainer">
                 <input type="text" placeholder='userName' name='userName' onChange={handleChange} className="lInput" />
                 <input type="password" placeholder='Password' name='password' onChange={handleChange} className="lInput" />
                 <button disabled={loading} onClick={handleClick} className="lButton">Login</button>
