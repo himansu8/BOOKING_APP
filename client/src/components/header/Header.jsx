@@ -7,7 +7,7 @@ import { useState } from 'react'
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { format } from "date-fns"
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SearchContext } from '../../context/SearchContext';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -81,9 +81,10 @@ function Header({ type }) {
           <>
             <h1 className="headerTitle">A Lifetime Of Discounts? It's Genius.</h1>
             <p className="headerDesc">
-              Get rewarded for your travels- unlock instant saving of 10% or more with a free Lamabooking account
+              Get rewarded for your travels- unlock instant saving of 10% or more with a free Apnabooking account!!
             </p>
-            {!user && <button className="headerBtn">Sign In/ Register</button>}
+            {!user && 
+            <button className="headerBtn"><Link to="/login" className='linkButton' >Sign In/ Register</Link></button>}
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className='headerIcon' />

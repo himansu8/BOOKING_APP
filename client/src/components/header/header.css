@@ -39,6 +39,10 @@ margin: 20px 0px;
     border: none;
     padding: 10px;
     cursor: pointer;
+    .linkButton {
+      color: #003580;
+      text-decoration: none;
+  }
 }
 .headerSearch {
     height: 30px;

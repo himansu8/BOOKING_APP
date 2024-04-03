@@ -38,6 +38,7 @@ function Login() {
     return (
         <div className='login'>
             <div className="lContainer">
+                <h1>Login To Apna Booking</h1>
                 <input type="text" placeholder='userName' name='userName' onChange={handleChange} className="lInput" />
                 <input type="password" placeholder='Password' name='password' onChange={handleChange} className="lInput" />
                 <button disabled={loading} onClick={handleClick} className="lButton">Login</button>
